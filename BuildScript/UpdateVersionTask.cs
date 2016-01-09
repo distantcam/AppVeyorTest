@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 public class UpdateVersionTask : Microsoft.Build.Utilities.Task
@@ -35,7 +36,7 @@ public class UpdateVersionTask : Microsoft.Build.Utilities.Task
             var data = string.Format("{{ \"version\": \"1.0+build{0}\" }}", buildNumber);
             Log.LogMessage("AppVeyor Content: {0}", data);
 
-            using (var response = await client.PutAsync(restBase + "api/build", new StringContent(data)).ConfigureAwait(false))
+            using (var response = await client.PutAsync(restBase + "api/build", new StringContent(data, Encoding.UTF8, "application/json")).ConfigureAwait(false))
             {
                 if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                 {
