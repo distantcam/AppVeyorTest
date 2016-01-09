@@ -1,3 +1,6 @@
 build_script: 
   - ps: $version = Get-Date -Format "mmddyyyy-HHmm"
   - ps: Update-AppveyorBuild -Version "1.0-$version"
+
+cache:
+  - packages -> **\packages.config
