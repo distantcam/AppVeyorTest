@@ -33,7 +33,7 @@ public class UpdateVersionTask : Task
 
         Log.LogMessage("AppVeyor PUT {0}api/build", restBase);
 
-        var data = string.Format("{{ \"version\": \"1.0 (Build {0})\" }}", buildNumber);
+        var data = string.Format("{{ \"version\": \"1.0+build{0}\" }}", buildNumber);
         var bytes = Encoding.UTF8.GetBytes(data);
         request.ContentLength = bytes.Length;
         request.ContentType = "application/json";
