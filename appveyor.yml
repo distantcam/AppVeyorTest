@@ -2,6 +2,7 @@ configuration: Release
 
 build:
   project: AppVeyorTest.sln
+  verbosity: detailed
 
 cache:
   - packages -> **\packages.config

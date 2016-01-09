@@ -31,10 +31,14 @@ public class UpdateVersionTask : Task
         var request = (HttpWebRequest)WebRequest.Create(restBase + "api/build");
         request.Method = "PUT";
 
+        Log.LogMessage("AppVeyor PUT {0}api/build", restBase);
+
         var data = string.Format("{{ \"version\": \"1.0 (Build {0})\" }}", buildNumber);
         var bytes = Encoding.UTF8.GetBytes(data);
         request.ContentLength = bytes.Length;
         request.ContentType = "application/json";
+
+        Log.LogMessage("AppVeyor Content: {0}", data);
 
         using (var writeStream = request.GetRequestStream())
         {
