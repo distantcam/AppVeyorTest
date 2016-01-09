@@ -12,6 +12,14 @@ public class UpdateVersionTask : Microsoft.Build.Utilities.Task
         {
             AsyncPump.Run(InnerExecute);
         }
+        catch (AggregateException ae)
+        {
+            ae.Handle(e =>
+            {
+                Log.LogErrorFromException(e);
+                return true;
+            });
+        }
         catch (Exception e)
         {
             Log.LogErrorFromException(e);
