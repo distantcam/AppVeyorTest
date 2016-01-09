@@ -1,0 +1,3 @@
+build_script: 
+  - $version = Get-Date -Format "mmddyyyy-HHmm"
+  - Update-AppveyorBuild -Version "1.0-$version"
