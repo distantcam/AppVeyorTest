@@ -1,6 +1,7 @@
-build_script: 
-  - ps: $version = Get-Date -Format "mmddyyyy-HHmm"
-  - ps: Update-AppveyorBuild -Version "1.0-$version"
+configuration: Release
+
+build:
+  project: AppVeyorTest.sln
 
 cache:
   - packages -> **\packages.config
