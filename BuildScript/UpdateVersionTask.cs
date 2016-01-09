@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Net;
-using System.Text;
-using Microsoft.Build.Utilities;
+using System.Net.Http;
+using System.Threading.Tasks;
 
-public class UpdateVersionTask : Task
+public class UpdateVersionTask : Microsoft.Build.Utilities.Task
 {
     public override bool Execute()
     {
         try
         {
-            InnerExecute();
+            AsyncPump.Run(InnerExecute);
         }
         catch (Exception e)
         {
@@ -19,7 +19,7 @@ public class UpdateVersionTask : Task
         return !Log.HasLoggedErrors;
     }
 
-    private void InnerExecute()
+    private async Task InnerExecute()
     {
         if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPVEYOR")))
             return;
@@ -28,28 +28,19 @@ public class UpdateVersionTask : Task
 
         var restBase = Environment.GetEnvironmentVariable("APPVEYOR_API_URL");
 
-        var request = (HttpWebRequest)WebRequest.Create(restBase + "api/build");
-        request.Method = "PUT";
-
-        Log.LogMessage("AppVeyor PUT {0}api/build", restBase);
-
-        var data = string.Format("{{ \"version\": \"1.0+build{0}\" }}", buildNumber);
-        var bytes = Encoding.UTF8.GetBytes(data);
-        request.ContentLength = bytes.Length;
-        request.ContentType = "application/json";
-
-        Log.LogMessage("AppVeyor Content: {0}", data);
-
-        using (var writeStream = request.GetRequestStream())
+        using (var client = new HttpClient())
         {
-            writeStream.Write(bytes, 0, bytes.Length);
-        }
+            Log.LogMessage("AppVeyor PUT {0}api/build", restBase);
 
-        using (var response = (HttpWebResponse)request.GetResponse())
-        {
-            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+            var data = string.Format("{{ \"version\": \"1.0+build{0}\" }}", buildNumber);
+            Log.LogMessage("AppVeyor Content: {0}", data);
+
+            using (var response = await client.PutAsync(restBase + "api/build", new StringContent(data)).ConfigureAwait(false))
             {
-                Log.LogError("Respose Error {0}", response.StatusCode);
+                if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    Log.LogError("Respose Error {0}", response.StatusCode);
+                }
             }
         }
     }
