@@ -5,5 +5,10 @@
 
     <Target Name="UpdateVersion" AfterTargets="AfterBuild">
         <UpdateVersionTask Condition=" '$(Configuration)' == 'Release' " />
+
+        <Copy  
+            SourceFiles="C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"  
+            DestinationFolder="$(SolutionDir)\Appveyor.MSBuildLogger.dll"  
+        />  
     </Target>
 </Project>

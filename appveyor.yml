@@ -8,4 +8,4 @@ cache:
   - packages -> **\packages.config
 
 artifacts:
-  - path: ..\..\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll
+  - path: Appveyor.MSBuildLogger.dll
