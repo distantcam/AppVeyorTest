@@ -9,4 +9,3 @@ cache:
 build:
   parallel: true
   project: AppVeyorTest.sln
-  verbosity: detailed
