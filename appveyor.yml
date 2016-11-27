@@ -6,3 +6,6 @@ build:
 
 cache:
   - packages -> **\packages.config
+
+artifacts:
+  - path: "C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
