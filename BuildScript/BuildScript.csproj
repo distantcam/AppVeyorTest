@@ -39,7 +39,6 @@
     <Compile Include="TaskItemExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-  
     <Reference Include="GitLink">
       <HintPath>..\packages\gitlink.2.4.0-unstable0063\lib\net45\GitLink.exe</HintPath>
       <Private>True</Private>
