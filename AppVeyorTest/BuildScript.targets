@@ -2,13 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <UsingTask TaskName="UpdateVersionTask" AssemblyFile="$(SolutionDir)\BuildScript\bin\Debug\BuildScript.dll" />
+    <UsingTask TaskName="GitLinkTask" AssemblyFile="$(SolutionDir)\BuildScript\bin\Debug\BuildScript.dll" />
 
     <Target Name="UpdateVersion" AfterTargets="AfterBuild">
         <UpdateVersionTask Condition=" '$(Configuration)' == 'Release' " />
-
-        <Copy  
-            SourceFiles="C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"  
-            DestinationFolder="$(SolutionDir)\Appveyor.MSBuildLogger.dll"  
-        />  
+        <GitLinkTask Condition=" '$(Configuration)' == 'Release' "
+            SolutionDirectory="$(SolutionDir)"
+            ProjectName="$(MSBuildProjectName)" />
     </Target>
 </Project>
