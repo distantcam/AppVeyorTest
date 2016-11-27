@@ -39,8 +39,8 @@
     <Compile Include="TaskItemExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GitLink, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\gitlink.2.3.0\lib\net45\GitLink.exe</HintPath>
+    <Reference Include="GitLink">
+      <HintPath>..\packages\gitlink.2.4.0-unstable0064\lib\net45\GitLink.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />

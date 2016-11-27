@@ -19,5 +19,5 @@ public class GitLinkTask : ToolTask
 
     protected override string GenerateFullPathToTool() => Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), "GitLink.exe");
 
-    protected override string GenerateCommandLineCommands() => $"{SolutionDirectory.FullPath()} -include {ProjectName}";
+    protected override string GenerateCommandLineCommands() => $"{SolutionDirectory.FullPath()} -include {ProjectName} -debug";
 }
