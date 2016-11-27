@@ -1,8 +1,12 @@
 configuration: Release
 
-build:
-  project: AppVeyorTest.sln
-  verbosity: detailed
+before_build:
+  - nuget restore AppVeyorTest.sln
 
 cache:
-  - packages -> **\packages.config
+  - src\packages -> **\packages.config
+
+build:
+  parallel: true
+  project: AppVeyorTest.sln
+  verbosity: detailed

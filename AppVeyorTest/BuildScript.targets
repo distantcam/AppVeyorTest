@@ -3,7 +3,7 @@
 
     <UsingTask TaskName="GitLinkTask" AssemblyFile="$(SolutionDir)\BuildScript\bin\$(Configuration)\BuildScript.dll" />
 
-    <Target Name="UpdateVersion" AfterTargets="AfterBuild">
+    <Target Name="CustomPostBuild" AfterTargets="AfterBuild">
         <GitLinkTask Condition=" '$(Configuration)' == 'Release' "
             SolutionDirectory="$(SolutionDir)"
             ProjectName="$(MSBuildProjectName)" />
